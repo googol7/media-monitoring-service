@@ -4,7 +4,7 @@ Just watch single stories of a newscast that are important to you.
 
 ## Description
 
-Parses all stories from [ORF Bundesland Heute](https://tvthek.orf.at/profile/Vorarlberg-heute/70024) and sends them via email.
+Parses all stories from [ORF TVthek “Bundesland Heute”](https://tvthek.orf.at/profile/Vorarlberg-heute/70024) and sends them via email.
 
 Finds keywords in the text and highlights them.
 
