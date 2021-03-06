@@ -19,9 +19,10 @@ from settings import (EMAIL_FROM, EMAIL_TO, SMTP_SERVER, SMTP_USER,
 
 highlights = []
 
-'''
+"""
 Test with this regex online tool: https://regex101.com/
-'''
+"""
+
 
 def get_html(url, needle, start_identifier=None, end_identifier=None):
     response = urllib2.urlopen(url)
@@ -123,8 +124,12 @@ def get_bundesland(bundesland):
     needle = 'value=\"(?P<url>https:\/\/tvthek\.orf\.at\/profile\/%s-heute\/%s\/%s-heute\/\d*\/[\dA-Za-z\-]*\/\d*)' % (
         bundesland, id, bundesland)
 
-    links = get_html(url=issue_url, needle=needle, start_identifier='b-player-segments',
-                     end_identifier='b-video-details')
+    links = get_html(
+        url=issue_url,
+        needle=needle,
+        start_identifier='b-player-segments',
+        end_identifier='b-video-details'
+    )
 
     if len(links) == 0:
         raise Exception("Links could not be extracted.")
@@ -140,13 +145,19 @@ def get_bundesland(bundesland):
     # https://stackoverflow.com/questions/7124778/how-to-match-anything-up-until-this-sequence-of-characters-in-a-regular-expres
 
     # needle = 'title&quot;:&quot;.+?(?=&quot;duration&quot;)'
-    needle = 'title&quot;:&quot;(?P<title>.+?)(?=&quot;,&quot;description&quot;)&quot;,&quot;description&quot;:(?P<description>.+?)(?=,&quot;duration&quot;)'
+    needle = '&quot;,&quot;title&quot;:&quot;(?P<title>.+?)(?=&quot;,&quot;description&quot;)&quot;,&quot;description&quot;:(?P<description>.+?)(?=,&quot;duration&quot;)'
 
-    texts = get_html(url=issue_url,
-                     needle=needle,
-                     start_identifier='<div class="b-player-controls jsb_VideoControls"',
-                     end_identifier='<div class="timeline-wrapper js-timeline-wrapper ">')
-                     # Until 29.07.2019: <div class="timeline-wrapper js-timeline-wrapper ">
+    texts = get_html(
+        url=issue_url,
+        needle=needle,
+        start_identifier='jsb_VideoPlaylist',
+        end_identifier='jsb_Tracker/NuragoTracker'
+    )
+    # start_identifier until 06.03.2021: <div class="b-player-controls jsb_VideoControls"
+    # end_identifier until 29.07.2019: <div class="timeline-wrapper js-timeline-wrapper ">
+
+    # TODO: Vorarlberg heute","mode":"vod","preview_image_url":"https://api-tvthek.orf.at/uploads/media/segments/0116/53/thumb_11552507_segments_player.jpeg","growing":true,"segments_complete":true,"duration_in_seconds":1093.475,"transcription_url":,"is_gapless":true,"has_livestream":true,"is_livestream_over":true,"videos":[{"id":14874430,"episode_id":14084230,"title_prefix":"","title_separator":"|","title":"Signation | Themen
+    # Sollte eigentlich "Signation | Themen" sein
 
     body = ''
     topic = 0
@@ -158,6 +169,8 @@ def get_bundesland(bundesland):
     for text in texts:
         highlight = False
         title = decode_js_text(text[0])
+        print('\n')
+        print('-' * 80)
         print("Title: {}".format(title))
         description = decode_js_text(text[1])
         description = description[1:-1]  # Remove the quotes "..."
@@ -179,7 +192,7 @@ def get_bundesland(bundesland):
                 found_keywords.append(keyword)
 
         if found_keywords:
-            description = '%s [found keywords: %s]' % (description, ', '.join(found_keywords))
+            description = '%s<br />[found keywords: %s]' % (description, ', '.join(found_keywords))
 
         description = '<p style="font-size: 14px;">%s</p>' % (description)
 
@@ -248,7 +261,8 @@ bundeslaender = [
 body = ''
 
 for bundesland in bundeslaender:
-    print('-------------------------------------------------------------------')
+    print('\n')
+    print('▒' * 80)
     print(bundesland)
     bundesland_body = get_bundesland(bundesland)
     body = '%s%s' % (body, bundesland_body)
