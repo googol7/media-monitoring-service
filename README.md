@@ -14,7 +14,7 @@ This way you don’t have to watch everything and save time every day.
 Rename `settings_default.py` to `settings.py` and edit the credentials.
 
 ## Usage
-Call this command on the command line : `./monitor.py`
+Call this command on the command line: `./monitor.py`
 
 ## License
 [GNU General Public License v3.0](LICENSE)
