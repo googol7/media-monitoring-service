@@ -156,9 +156,6 @@ def get_bundesland(bundesland):
     # start_identifier until 06.03.2021: <div class="b-player-controls jsb_VideoControls"
     # end_identifier until 29.07.2019: <div class="timeline-wrapper js-timeline-wrapper ">
 
-    # TODO: Vorarlberg heute","mode":"vod","preview_image_url":"https://api-tvthek.orf.at/uploads/media/segments/0116/53/thumb_11552507_segments_player.jpeg","growing":true,"segments_complete":true,"duration_in_seconds":1093.475,"transcription_url":,"is_gapless":true,"has_livestream":true,"is_livestream_over":true,"videos":[{"id":14874430,"episode_id":14084230,"title_prefix":"","title_separator":"|","title":"Signation | Themen
-    # Sollte eigentlich "Signation | Themen" sein
-
     body = ''
     topic = 0
 
