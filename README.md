@@ -1,6 +1,6 @@
 # Media monitoring service
 
-Just watch the single stories of a newscast that are important to you.
+Just watch single stories of a newscast that are important to you.
 
 ## Description
 
